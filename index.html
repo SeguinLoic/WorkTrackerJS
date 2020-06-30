@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Work Tracker</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="container-title">
+            <h2>What's up ?</h2>
+        </div>
+
+        <div class="container-board">
+  
+            <div class="navigation">
+                <form id="form">
+                <div class="formControl">
+                    <label for="projectName">Project name</label>
+                    <input type="text" id="projectName">
+                    <small></small>
+                </div>
+                <div class="formControl">
+                    <label for="projectType">Project type</label>
+                    <select id="projectType">
+                    <option>Home + 1 PA</option>
+                    <option>Modifs</option>
+                    <option>Refonte</option>
+                    </select>
+                    <small></small>
+                </div>
+                <div class="formControl">
+                    <label for="projectType">Project date</label>
+                    <input type="date" id="projectDate">
+                    <small></small>
+                </div>
+                <button>Envoyer</button>
+                </form>
+            </div>
+            <div class="container-project"></div>
+        </div>
+
+    </div>
+
+      <script src="script.js"></script>
+    
+</body>
+</html>
