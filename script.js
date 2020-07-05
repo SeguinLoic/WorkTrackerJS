@@ -1,14 +1,119 @@
-// --- STORE
+// --- VARIABLES 
+const formulaire = document.getElementById("form");
+const btnForm = document.querySelector("#form button");
+const projectName = document.getElementById("projectName");
+const projectType = document.getElementById("projectType");
+const projectDate = document.getElementById("projectDate");
 const containerProject = document.querySelector(".container-project");
+let projets = [];
+const edit = false;
 
+getStore();
+
+
+// --- EVENT LISTENER
+btnForm.addEventListener("click", addProject);
+containerProject.addEventListener("click", function(e){
+  e.preventDefault();
+  if (e.target.classList.contains('remove-project')){
+    removeProject(e);
+  }
+});
+
+
+// --- ADD PROJECT
+function addProject(e) {
+
+  e.preventDefault();
+  if (projectName.value == "" || projectType.value == ""  ||  projectDate.value == "") {
+    alert("Veuillez remplir tous les champs");
+    return;
+  }
+
+  // AJOUT PROJET AU TABLEAU
+  const newProjet = {
+    nom: projectName.value,
+    type: projectType.value,
+    date: projectDate.value,
+    id: Date.now(),
+    edit: false
+  }
+  projets.push(newProjet);
+
+  const project = document.createElement("div");
+  project.classList.add("project");
+  project.id = newProjet.id;
+
+  project.innerHTML = `
+    <div class='data-project'>
+      <span class='name'>
+        ${projectName.value}
+        <input type="text" class="nameEdit"/>
+      </span>
+      <span class='type'>
+        ${projectType.value}
+        <input type="text" class="typeEdit"/>
+      </span>
+      <span class='date'>
+        ${projectDate.value}
+        <input type="text" class="dateEdit"/>
+      </span>
+    </div>
+    <div class='navigation-project'>
+      <button class='edit-project'>Edit</button>
+      <button class='remove-project'>X</button>
+    </div>
+  `;
+
+  containerProject.appendChild(project);
+  
+  setStore();
+  
+  projectName.value = "";
+  projectType.value = "";
+  projectDate.value = "";
+}
+
+// --- REMOVE PROJECT
+function removeProject(e) {
+  const parentProject = e.target.parentNode.parentNode;
+  const projetsFiltered = projets.filter(function(obj){
+    return obj.id != parentProject.id;
+  })
+  projets = projetsFiltered;
+	parentProject.remove();
+	setStore();
+}
+
+// --- TOGGLE EDIT PROJECT
+function toggleEdit(e) {
+	e.target.parentNode.parentNode.classList.toggle("edit");
+	console.log(e.target.parentNode.parentNode.classList);
+}
+
+// --- SET PROJECT
+function setProject() {
+
+}
+
+// --- SET STORE
+function setStore() {
+  localStorage.setItem("Projets", JSON.stringify(projets));
+}
+
+// --- GET STORE
 function getStore() {
 
   const projectStore = JSON.parse(localStorage.getItem("Projets"));
   if (projectStore != null) {
 
     projectStore.forEach(function(projet) {
+
+      projets.push(projet);
+
       const project = document.createElement("div");
       project.classList.add("project");
+      project.id = projet.id;
     
       project.innerHTML = `
       <div class='data-project'>
@@ -36,73 +141,9 @@ function getStore() {
   }
   return
 }
-getStore();
 
 
-// --- VARIABLES 
-const formulaire = document.getElementById("form");
-const btnForm = document.querySelector("#form button");
-const projectName = document.getElementById("projectName");
-const projectType = document.getElementById("projectType");
-const projectDate = document.getElementById("projectDate");
-const projets = [];
-const edit = false;
 
-
-// --- EVENT LISTENER
-btnForm.addEventListener("click", addProject);
-containerProject.addEventListener("click", function(e){
-  e.preventDefault();
-  if (e.target.classList.contains('remove-project')){
-    removeProject(e);
-  }
-
-  console.log(e.target);
-});
-
-
-// --- FUNCTIONS
-function addProject(e) {
-
-  e.preventDefault();
-  if (projectName.value == "" || projectType.value == ""  ||  projectDate.value == "") {
-    alert("Veuillez remplir tous les champs");
-    return;
-  }
-
-  // AJOUT PROJET AU TABLEAU
-  const newProjet = {
-    nom: projectName.value,
-    type: projectType.value,
-    date: projectDate.value,
-    id: Date.now(),
-    edit: false
-  }
-  projets.push(newProjet);
-
-  const project = document.createElement("div");
-  project.classList.add("project");
-
-  project.innerHTML = `
-    <div class='data-project'>
-      <span class='name'>
-        ${projectName.value}
-        <input type="text" class="nameEdit"/>
-      </span>
-      <span class='type'>
-        ${projectType.value}
-        <input type="text" class="typeEdit"/>
-      </span>
-      <span class='date'>
-        ${projectDate.value}
-        <input type="text" class="dateEdit"/>
-      </span>
-    </div>
-    <div class='navigation-project'>
-      <button class='edit-project'>Edit</button>
-      <button class='remove-project'>X</button>
-    </div>
-  `;
 
   /*const dataProject = document.createElement("div");
   dataProject.classList.add("data-project");
@@ -149,28 +190,3 @@ function addProject(e) {
   project.append(dataProject);
   project.append(navigationProject);
   */
-
-  containerProject.appendChild(project);
-  
-  store();
-  
-  projectName.value = "";
-  projectType.value = "";
-  projectDate.value = "";
-}
-
-function removeProject(e) {
-	const parentProject = e.target.parentNode.parentNode;
-	parentProject.remove();
-	store();
-}
-
-function toggleEdit(e) {
-	e.target.parentNode.parentNode.classList.toggle("edit");
-	console.log(e.target.parentNode.parentNode.classList);
-}
-
-function store() {
-  const projects = containerProject.innerHTML;
-  localStorage.setItem("Projets", JSON.stringify(projets));
-}
