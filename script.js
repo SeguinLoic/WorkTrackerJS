@@ -1,9 +1,38 @@
 // --- STORE
 const containerProject = document.querySelector(".container-project");
+
 function getStore() {
-  const projectStore = localStorage.getItem("Projets");
+
+  const projectStore = JSON.parse(localStorage.getItem("Projets"));
   if (projectStore != null) {
-    containerProject.innerHTML = projectStore;
+
+    projectStore.forEach(function(projet) {
+      const project = document.createElement("div");
+      project.classList.add("project");
+    
+      project.innerHTML = `
+      <div class='data-project'>
+        <span class='name'>
+          ${projet.nom}
+          <input type="text" class="nameEdit"/>
+        </span>
+        <span class='type'>
+          ${projet.type}
+          <input type="text" class="typeEdit"/>
+        </span>
+        <span class='date'>
+          ${projet.date}
+          <input type="text" class="dateEdit"/>
+        </span>
+      </div>
+      <div class='navigation-project'>
+        <button class='edit-project'>Edit</button>
+        <button class='remove-project'>X</button>
+      </div>
+      `;
+      containerProject.append(project);
+    })
+    
   }
   return
 }
@@ -16,28 +45,66 @@ const btnForm = document.querySelector("#form button");
 const projectName = document.getElementById("projectName");
 const projectType = document.getElementById("projectType");
 const projectDate = document.getElementById("projectDate");
-const btnRemoveProject = document.querySelectorAll(".remove-project");
+const projets = [];
 const edit = false;
 
 
 // --- EVENT LISTENER
 btnForm.addEventListener("click", addProject);
-btnRemoveProject.forEach(function(projet) {
-	projet.addEventListener("click", removeProject);
+containerProject.addEventListener("click", function(e){
+  e.preventDefault();
+  if (e.target.classList.contains('remove-project')){
+    removeProject(e);
+  }
+
+  console.log(e.target);
 });
 
 
 // --- FUNCTIONS
 function addProject(e) {
+
   e.preventDefault();
   if (projectName.value == "" || projectType.value == ""  ||  projectDate.value == "") {
     alert("Veuillez remplir tous les champs");
     return;
   }
+
+  // AJOUT PROJET AU TABLEAU
+  const newProjet = {
+    nom: projectName.value,
+    type: projectType.value,
+    date: projectDate.value,
+    id: Date.now(),
+    edit: false
+  }
+  projets.push(newProjet);
+
   const project = document.createElement("div");
   project.classList.add("project");
 
-  const dataProject = document.createElement("div");
+  project.innerHTML = `
+    <div class='data-project'>
+      <span class='name'>
+        ${projectName.value}
+        <input type="text" class="nameEdit"/>
+      </span>
+      <span class='type'>
+        ${projectType.value}
+        <input type="text" class="typeEdit"/>
+      </span>
+      <span class='date'>
+        ${projectDate.value}
+        <input type="text" class="dateEdit"/>
+      </span>
+    </div>
+    <div class='navigation-project'>
+      <button class='edit-project'>Edit</button>
+      <button class='remove-project'>X</button>
+    </div>
+  `;
+
+  /*const dataProject = document.createElement("div");
   dataProject.classList.add("data-project");
   
   const name = document.createElement("span");
@@ -58,7 +125,7 @@ function addProject(e) {
   date.innerText = projectDate.value;
   const editDate = document.createElement("input");
   editDate.classList.add("edit-date");
-  
+
 
   const navigationProject = document.createElement("div");
   navigationProject.classList.add("navigation-project");
@@ -73,6 +140,7 @@ function addProject(e) {
   btnDelete.classList.add("remove-project");
   btnDelete.addEventListener("click", removeProject);
   
+
   dataProject.append(name);
   dataProject.append(type);
   dataProject.append(date);
@@ -80,6 +148,8 @@ function addProject(e) {
   navigationProject.append(btnEdit);
   project.append(dataProject);
   project.append(navigationProject);
+  */
+
   containerProject.appendChild(project);
   
   store();
@@ -102,5 +172,5 @@ function toggleEdit(e) {
 
 function store() {
   const projects = containerProject.innerHTML;
-  localStorage.setItem("Projets", projects);
+  localStorage.setItem("Projets", JSON.stringify(projets));
 }
