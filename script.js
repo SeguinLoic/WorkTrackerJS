@@ -18,6 +18,12 @@ containerProject.addEventListener("click", function(e){
   if (e.target.classList.contains('remove-project')){
     removeProject(e);
   }
+  if (e.target.classList.contains('edit-project')){
+    toggleEdit(e);
+  }
+  if (e.target.classList.contains('save-project')){
+    saveEdit();
+  }
 });
 
 
@@ -35,40 +41,11 @@ function addProject(e) {
     nom: projectName.value,
     type: projectType.value,
     date: projectDate.value,
-    id: Date.now(),
-    edit: false
+    id: Date.now()
   }
   projets.push(newProjet);
-
-  const project = document.createElement("div");
-  project.classList.add("project");
-  project.id = newProjet.id;
-
-  project.innerHTML = `
-    <div class='data-project'>
-      <span class='name'>
-        ${projectName.value}
-        <input type="text" class="nameEdit"/>
-      </span>
-      <span class='type'>
-        ${projectType.value}
-        <input type="text" class="typeEdit"/>
-      </span>
-      <span class='date'>
-        ${projectDate.value}
-        <input type="text" class="dateEdit"/>
-      </span>
-    </div>
-    <div class='navigation-project'>
-      <button class='edit-project'>Edit</button>
-      <button class='remove-project'>X</button>
-    </div>
-  `;
-
-  containerProject.appendChild(project);
-  
+  setProject(projectName.value, projectType.value, projectDate.value, newProjet.id); 
   setStore();
-  
   projectName.value = "";
   projectType.value = "";
   projectDate.value = "";
@@ -85,15 +62,48 @@ function removeProject(e) {
 	setStore();
 }
 
+// --- SAVE EDIT
+function saveEdit(e) {
+  console.log("save");
+}
+
 // --- TOGGLE EDIT PROJECT
 function toggleEdit(e) {
 	e.target.parentNode.parentNode.classList.toggle("edit");
-	console.log(e.target.parentNode.parentNode.classList);
+  const parent = e.target.parentNode.parentNode;
+  const elems = parent.querySelectorAll(".editElement");
+  elems.forEach(function(elem) {
+    elem.classList.toggle("hide");
+  })
 }
 
 // --- SET PROJECT
-function setProject() {
-
+function setProject(nom, type, date) {
+  const project = document.createElement("div");
+  project.classList.add("project");
+  project.id = Date.now();
+  project.innerHTML = `
+    <div class='data-project'>
+      <span class='name'>
+        ${nom}
+        <input type="text" class="nameEdit editElement hide" value="${nom}"/>
+      </span>
+      <span class='type'>
+        ${type}
+        <input type="text" class="typeEdit editElement hide" value="${type}"/>
+      </span>
+      <span class='date'>
+        ${date}
+        <input type="text" class="dateEdit editElement hide" value="${date}"/>
+      </span>
+    </div>
+    <div class='navigation-project'>
+      <button class='edit-project'>Edit</button>
+      <button class='save-project editElement hide'>Save</button>
+      <button class='remove-project'>X</button>
+    </div>
+  `;
+  containerProject.appendChild(project);
 }
 
 // --- SET STORE
@@ -103,90 +113,12 @@ function setStore() {
 
 // --- GET STORE
 function getStore() {
-
   const projectStore = JSON.parse(localStorage.getItem("Projets"));
   if (projectStore != null) {
-
     projectStore.forEach(function(projet) {
-
       projets.push(projet);
-
-      const project = document.createElement("div");
-      project.classList.add("project");
-      project.id = projet.id;
-    
-      project.innerHTML = `
-      <div class='data-project'>
-        <span class='name'>
-          ${projet.nom}
-          <input type="text" class="nameEdit"/>
-        </span>
-        <span class='type'>
-          ${projet.type}
-          <input type="text" class="typeEdit"/>
-        </span>
-        <span class='date'>
-          ${projet.date}
-          <input type="text" class="dateEdit"/>
-        </span>
-      </div>
-      <div class='navigation-project'>
-        <button class='edit-project'>Edit</button>
-        <button class='remove-project'>X</button>
-      </div>
-      `;
-      containerProject.append(project);
+      setProject(projet.nom, projet.type, projet.date); 
     })
-    
   }
   return
 }
-
-
-
-
-  /*const dataProject = document.createElement("div");
-  dataProject.classList.add("data-project");
-  
-  const name = document.createElement("span");
-  name.classList.add("name");
-  name.innerText = projectName.value;
-  const editName = document.createElement("input");
-  editName.classList.add("edit-name");
-  
-  const type = document.createElement("span");
-  type.classList.add("type");
-  type.innerText = projectType.value;
-  const editType = document.createElement("select");
-  editType.classList.add("edit-type");
-  
-  
-  const date = document.createElement("span");
-  date.classList.add("date");
-  date.innerText = projectDate.value;
-  const editDate = document.createElement("input");
-  editDate.classList.add("edit-date");
-
-
-  const navigationProject = document.createElement("div");
-  navigationProject.classList.add("navigation-project");
-  
-  const btnEdit = document.createElement("button");
-  btnEdit.innerText = "Edit";
-  btnEdit.classList.add("edit-projet");
-  btnEdit.addEventListener("click", toggleEdit);
-
-  const btnDelete = document.createElement("button");
-  btnDelete.innerText = "X"
-  btnDelete.classList.add("remove-project");
-  btnDelete.addEventListener("click", removeProject);
-  
-
-  dataProject.append(name);
-  dataProject.append(type);
-  dataProject.append(date);
-  navigationProject.append(btnDelete);
-  navigationProject.append(btnEdit);
-  project.append(dataProject);
-  project.append(navigationProject);
-  */
