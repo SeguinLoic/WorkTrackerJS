@@ -81,7 +81,7 @@ function saveEdit(e) {
   parent.querySelector(".container-name .name").innerHTML = newName;
   parent.querySelector(".container-type .type").innerHTML = newType;
   parent.querySelector(".container-date .date").innerHTML = newDate;
-  
+
   projets.splice(index, 1, newProjet);
   setStore();
   toggleEdit(e);
@@ -110,7 +110,13 @@ function setProject(nom, type, date, id) {
       </span>
       <span class='container-type'>
         <span class="type">${type}</span>
-        <input type="text" class="typeEdit editElement hide" value="${type}"/>
+        <select class="typeEdit editElement hide" value="${type}">
+        <option>Home + 1 PA</option>
+        <option>Pages d'Activités</option>
+        <option>Modifs</option>
+        <option>Refonte</option>
+        <option>Reprise de parc</option>
+        </select>
       </span>
       <span class='container-date'>
         <span class="date">${date}</span>
