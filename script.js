@@ -22,7 +22,7 @@ containerProject.addEventListener("click", function(e){
     toggleEdit(e);
   }
   if (e.target.classList.contains('save-project')){
-    saveEdit();
+    saveEdit(e);
   }
 });
 
@@ -41,7 +41,7 @@ function addProject(e) {
     nom: projectName.value,
     type: projectType.value,
     date: projectDate.value,
-    id: Date.now()
+    id: Date.now().toString()
   }
   projets.push(newProjet);
   setProject(projectName.value, projectType.value, projectDate.value, newProjet.id); 
@@ -64,7 +64,23 @@ function removeProject(e) {
 
 // --- SAVE EDIT
 function saveEdit(e) {
-  console.log("save");
+  const parent = e.target.parentNode.parentNode;
+  const id = parent.id;
+  const index = projets.findIndex((x) => x.id === id);
+
+  const newName = parent.querySelector(".nameEdit").value;
+  const newType = parent.querySelector(".typeEdit").value;
+  const newDate = parent.querySelector(".dateEdit").value;
+  const newProjet = {
+    nom: newName,
+    type: newType,
+    date: newDate, 
+    id: id
+  }
+
+  projets.splice(index, 1, newProjet);
+  setStore();
+  // toggleEdit(e);
 }
 
 // --- TOGGLE EDIT PROJECT
@@ -78,12 +94,12 @@ function toggleEdit(e) {
 }
 
 // --- SET PROJECT
-function setProject(nom, type, date) {
+function setProject(nom, type, date, id) {
   const project = document.createElement("div");
   project.classList.add("project");
-  project.id = Date.now();
+  project.id = id;
   project.innerHTML = `
-    <div class='data-project'>
+    <div class='data-project' >
       <span class='name'>
         ${nom}
         <input type="text" class="nameEdit editElement hide" value="${nom}"/>
@@ -117,7 +133,7 @@ function getStore() {
   if (projectStore != null) {
     projectStore.forEach(function(projet) {
       projets.push(projet);
-      setProject(projet.nom, projet.type, projet.date); 
+      setProject(projet.nom, projet.type, projet.date, projet.id); 
     })
   }
   return

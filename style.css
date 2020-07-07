@@ -75,6 +75,7 @@ body {
     display: flex;
     width: 33.3%;
     padding: 10px 25px;
+    flex-direction: column;
 }
 
 
