@@ -78,9 +78,13 @@ function saveEdit(e) {
     id: id
   }
 
+  parent.querySelector(".container-name .name").innerHTML = newName;
+  parent.querySelector(".container-type .type").innerHTML = newType;
+  parent.querySelector(".container-date .date").innerHTML = newDate;
+  
   projets.splice(index, 1, newProjet);
   setStore();
-  // toggleEdit(e);
+  toggleEdit(e);
 }
 
 // --- TOGGLE EDIT PROJECT
@@ -100,16 +104,16 @@ function setProject(nom, type, date, id) {
   project.id = id;
   project.innerHTML = `
     <div class='data-project' >
-      <span class='name'>
-        ${nom}
+      <span class='container-name'>
+        <span class="name">${nom}</span>
         <input type="text" class="nameEdit editElement hide" value="${nom}"/>
       </span>
-      <span class='type'>
-        ${type}
+      <span class='container-type'>
+        <span class="type">${type}</span>
         <input type="text" class="typeEdit editElement hide" value="${type}"/>
       </span>
-      <span class='date'>
-        ${date}
+      <span class='container-date'>
+        <span class="date">${date}</span>
         <input type="text" class="dateEdit editElement hide" value="${date}"/>
       </span>
     </div>

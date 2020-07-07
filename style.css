@@ -71,14 +71,16 @@ body {
     width: 95%;
     display: flex;
 }
-.data-project span {
+.data-project > span {
     display: flex;
     width: 33.3%;
     padding: 10px 25px;
     flex-direction: column;
 }
 
-
+.navigation-project {
+    display: flex;
+}
 button.hide, input.hide {
     display: none;
 }
