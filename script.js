@@ -83,7 +83,7 @@ function saveEdit(e) {
 
   const newName = parent.querySelector(".nameEdit").value;
   const newType = parent.querySelector(".typeEdit").value;
-  const newDate = parent.querySelector(".dateEdit").value.split("-").reverse().join("-");
+  const newDate = parent.querySelector(".dateEdit").value;
   const newProjet = {
     nom: newName,
     type: newType,
@@ -93,7 +93,7 @@ function saveEdit(e) {
 
   parent.querySelector(".container-name .name").innerHTML = newName;
   parent.querySelector(".container-type .type").innerHTML = newType;
-  parent.querySelector(".container-date .date").innerHTML = newDate;
+  parent.querySelector(".container-date .date").innerHTML = newDate.split("-").reverse().join("-");
 
   projets.splice(index, 1, newProjet);
   setStore();
@@ -102,7 +102,7 @@ function saveEdit(e) {
 
 // --- TOGGLE EDIT PROJECT
 function toggleEdit(e) {
-	e.target.parentNode.parentNode.classList.toggle("edit");
+  e.target.parentNode.parentNode.classList.toggle("edit");
   const parent = e.target.parentNode.parentNode;
   const elems = parent.querySelectorAll(".editElement");
   elems.forEach(function(elem) {
@@ -138,7 +138,7 @@ function setProject(nom, type, date, id, container) {
       </span>
     </div>
     <div class='navigation-project'>
-      <button class='edit-project'>Edit</button>
+      <button class='edit-project editElement'>Edit</button>
       <button class='save-project editElement hide'>Save</button>
       <button class='remove-project'>X</button>
     </div>
