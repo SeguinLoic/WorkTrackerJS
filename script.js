@@ -4,8 +4,11 @@ const btnForm = document.querySelector("#form button");
 const projectName = document.getElementById("projectName");
 const projectType = document.getElementById("projectType");
 const projectDate = document.getElementById("projectDate");
+const navigationTableau = document.querySelector(".navigationTableaux");
 const containerProject = document.querySelector(".container-project");
+const containerArchives = document.querySelector(".container-project-archives");
 let projets = [];
+let projetsArchives = [];
 const edit = false;
 
 getStore();
@@ -24,6 +27,16 @@ containerProject.addEventListener("click", function(e){
   if (e.target.classList.contains('save-project')){
     saveEdit(e);
   }
+});
+navigationTableau.addEventListener("click", function(e){
+	e.preventDefault();
+	if( e.target.classList.contains("enCours")){
+		containerArchives.classList.remove("actif");
+		containerProject.classList.add("actif");
+	} else if( e.target.classList.contains("archives")) {
+		containerProject.classList.remove("actif");
+		containerArchives.classList.add("actif");
+	}
 });
 
 
@@ -44,7 +57,7 @@ function addProject(e) {
     id: Date.now().toString()
   }
   projets.push(newProjet);
-  setProject(projectName.value, projectType.value, projectDate.value, newProjet.id); 
+  setProject(projectName.value, projectType.value, projectDate.value, newProjet.id, containerProject); 
   setStore();
   projectName.value = "";
   projectType.value = "";
@@ -98,7 +111,7 @@ function toggleEdit(e) {
 }
 
 // --- SET PROJECT
-function setProject(nom, type, date, id) {
+function setProject(nom, type, date, id, container) {
   const formatDate = date.split("-").reverse().join("-");
   const project = document.createElement("div");
   project.classList.add("project");
@@ -130,7 +143,7 @@ function setProject(nom, type, date, id) {
       <button class='remove-project'>X</button>
     </div>
   `;
-  containerProject.appendChild(project);
+  container.appendChild(project);
 }
 
 // --- SET STORE
@@ -144,7 +157,7 @@ function getStore() {
   if (projectStore != null) {
     projectStore.forEach(function(projet) {
       projets.push(projet);
-      setProject(projet.nom, projet.type, projet.date, projet.id); 
+      setProject(projet.nom, projet.type, projet.date, projet.id, containerProject); 
     })
   }
   return

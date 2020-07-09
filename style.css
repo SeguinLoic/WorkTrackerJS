@@ -21,17 +21,29 @@ body {
 .container-board {
     display: flex;
 }
-.container-board .container-project {
+.container-board .container-content {
     border: 1px solid blue;
     width: 75%;
     padding: 25px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 .container-board .navigation {
     border: 1px solid green;
     padding: 25px;
     width: 25%;
+}
+.navigationTableaux {
+    border: 1px solid green;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(-100%);
+    display: flex;
+}
+.navigationTableaux a {
+    padding: 7px 14px;
 }
 
 
@@ -60,6 +72,16 @@ body {
     margin-top: 10px;
 }
 
+/* -- FILTRES PROJETS -- */
+.filtres {
+    border: 1px solid orange;
+    display: flex;
+    width: 96%;
+}
+.filtres span {
+    width: 33.3%;
+    padding: 7px 10px;
+}
 
 /* -- TUILES PROJETS -- */
 .project {
@@ -82,5 +104,22 @@ body {
     display: flex;
 }
 button.hide, input.hide, select.hide {
+    display: none;
+}
+
+
+.container-project-archives.actif {
+    display: block;
+}
+.container-project-archives {
+    border: 1px solid purple;
+    padding: 25px;
+    display: none;
+}
+
+.container-project.actif {
+    display: block;
+}
+.container-project {
     display: none;
 }
