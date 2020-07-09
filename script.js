@@ -70,7 +70,7 @@ function saveEdit(e) {
 
   const newName = parent.querySelector(".nameEdit").value;
   const newType = parent.querySelector(".typeEdit").value;
-  const newDate = parent.querySelector(".dateEdit").value;
+  const newDate = parent.querySelector(".dateEdit").value.split("-").reverse().join("-");
   const newProjet = {
     nom: newName,
     type: newType,
@@ -99,6 +99,7 @@ function toggleEdit(e) {
 
 // --- SET PROJECT
 function setProject(nom, type, date, id) {
+  const formatDate = date.split("-").reverse().join("-");
   const project = document.createElement("div");
   project.classList.add("project");
   project.id = id;
@@ -119,8 +120,8 @@ function setProject(nom, type, date, id) {
         </select>
       </span>
       <span class='container-date'>
-        <span class="date">${date}</span>
-        <input type="text" class="dateEdit editElement hide" value="${date}"/>
+        <span class="date">${formatDate}</span>
+        <input type="date" class="dateEdit editElement hide" value="${date}"/>
       </span>
     </div>
     <div class='navigation-project'>
