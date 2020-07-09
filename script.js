@@ -39,16 +39,6 @@ navigationTableau.addEventListener("click", function(e){
 		containerArchives.classList.add("actif");
 	}
 });
-navigationTableau.addEventListener("click", function(e){
-	e.preventDefault();
-	if( e.target.classList.contains("enCours")){
-		containerArchives.classList.remove("actif");
-		containerProject.classList.add("actif");
-	} else if( e.target.classList.contains("archives")) {
-		containerProject.classList.remove("actif");
-		containerArchives.classList.add("actif");
-	}
-});
 filtres.addEventListener("click", filtresProjets);
 
 
@@ -156,6 +146,24 @@ function setProject(nom, type, date, id, container) {
     </div>
   `;
   container.appendChild(project);
+}
+
+// --- FILTRES
+function filtresProjets(e){
+  const dataFiltre = e.target.dataset.filtre;
+  if (dataFiltre == "nom") {
+    projets.sort((a, b) => (a.nom > b.nom) ? 1 : ((b.nom > a.nom) ? -1 : 0));
+  }
+  if (dataFiltre == "type") {
+    projets.sort((a, b) => (a.type > b.type) ? 1 : ((b.type > a.type) ? -1 : 0));
+  }
+  if (dataFiltre == "date") {
+    projets.sort((a, b) => new Date(a.date) - new Date(b.date));
+  }
+  containerProject.innerHTML = "";
+  projets.forEach(function(projet) {
+    setProject(projet.nom, projet.type, projet.date, projet.id, containerProject); 
+  });
 }
 
 // --- SET STORE
