@@ -69,6 +69,13 @@ function addProject(e) {
 // --- REMOVE PROJECT
 function removeProject(e) {
   const parentProject = e.target.parentNode.parentNode;
+  const projetsFind = projets.filter(function(obj){
+    return obj.id === parentProject.id;
+  })
+  const firstElem = projetsFind.shift();
+  projetsArchives.push(firstElem);
+  console.log(projetsArchives);
+  setProject(firstElem.nom, firstElem.type, firstElem.date, firstElem.id, containerArchives); 
   const projetsFiltered = projets.filter(function(obj){
     return obj.id != parentProject.id;
   })
@@ -169,15 +176,23 @@ function filtresProjets(e){
 // --- SET STORE
 function setStore() {
   localStorage.setItem("Projets", JSON.stringify(projets));
+  localStorage.setItem("Archives", JSON.stringify(projetsArchives));
 }
 
 // --- GET STORE
 function getStore() {
   const projectStore = JSON.parse(localStorage.getItem("Projets"));
+  const projectArchivesStore = JSON.parse(localStorage.getItem("Archives"));
   if (projectStore != null) {
     projectStore.forEach(function(projet) {
       projets.push(projet);
       setProject(projet.nom, projet.type, projet.date, projet.id, containerProject); 
+    })
+  }
+  if (projectArchivesStore != null) {
+    projectArchivesStore.forEach(function(projetArchive) {
+      projetsArchives.push(projetArchive);
+      setProject(projetArchive.nom, projetArchive.type, projetArchive.date, projetArchive.id, containerArchives); 
     })
   }
   return

@@ -113,7 +113,6 @@ button.hide, input.hide, select.hide {
 }
 .container-project-archives {
     border: 1px solid purple;
-    padding: 25px;
     display: none;
 }
 
@@ -121,5 +120,13 @@ button.hide, input.hide, select.hide {
     display: block;
 }
 .container-project {
+    display: none;
+}
+
+
+.container-project-archives .project {
+    opacity: 0.4;
+}
+.container-project-archives .navigation-project {
     display: none;
 }
