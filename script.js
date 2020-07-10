@@ -147,9 +147,9 @@ function setProject(nom, type, date, id, container) {
       </span>
     </div>
     <div class='navigation-project'>
-      <button class='edit-project editElement'>Edit</button>
-      <button class='save-project editElement hide'>Save</button>
-      <button class='remove-project'>X</button>
+      <button class='edit-project editElement'><i class="far fa-edit"></i></button>
+      <button class='save-project editElement hide'><i class="fas fa-check"></i></button>
+      <button class='remove-project'><i class="far fa-trash-alt"></i></button>
     </div>
   `;
   container.appendChild(project);

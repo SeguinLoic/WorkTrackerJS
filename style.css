@@ -1,16 +1,15 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
 * {
   box-sizing: border-box;
 }
 body {
-  background-color: #f9fafb;
-  font-family: 'Open Sans', sans-serif;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
+    background-color: #fdfeff;
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    line-height: 1.2em;
 }
 .container {
     width: 100%;
@@ -18,21 +17,30 @@ body {
     min-height: 100vH;
     box-sizing: border-box;
 }
+.container-title h2 {
+    line-height: 1.2em;
+    font-size: 2em;
+    font-weight: 700;
+    color: #274d8a;
+}
 .container-board {
     display: flex;
 }
 .container-board .container-content {
-    border: 1px solid blue;
     width: 75%;
     padding: 25px;
     display: flex;
     flex-direction: column;
     position: relative;
+    padding-top: 0px;
 }
 .container-board .navigation {
-    border: 1px solid green;
     padding: 25px;
     width: 25%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 2px 17px -7px rgba(0,0,0,0.2);
+    height: 100%;
 }
 .navigationTableaux {
     border: 1px solid green;
@@ -51,79 +59,123 @@ body {
 .formControl {
     display: flex;
     flex-direction: column;
-    padding-bottom: 9px;
+    padding-bottom: 12px;
 }
 .formControl input, .formControl select {
     padding: 8px 10px;
     box-sizing: border-box;
 }
 .formControl label {
-    font-weight: 700;
-    color: #7b7b7b;
-    padding-bottom: 3px;
+    font-weight: 400;
+    color: #333333;
+    padding-bottom: 5px;
+    font-size: 0.9em;
 }
 .container-board .navigation form button {
     padding: 11px 22px;
     border-radius: 5px !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     text-transform: uppercase;
     box-shadow: none !important;
-    border: 1px solid #c1c1c1;
+    background-color: #feb151;
     margin-top: 10px;
+    border: none !important;
+    color: #fff;
 }
 
 /* -- FILTRES PROJETS -- */
 .filtres {
-    border: 1px solid orange;
     display: flex;
     width: 96%;
+    font-size: 0.9em;
 }
 .filtres span {
     width: 33.3%;
     padding: 7px 10px;
+    cursor: pointer;
 }
+
+
 
 /* -- TUILES PROJETS -- */
 .project {
-    border: 1px solid red;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    padding: 0px 25px;
+    background-color: #fff;
+    margin: 5px 0px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 17px -7px rgba(0,0,0,0.25);
+    height: 65px;
+    position: relative;
+}
+.project:after {
+    content: '';
+    width: 3px;
+    height: 80%;
+    background-color: #feb151;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(100%, -50%);
+    border-radius: 0px 2px 2px 0px;
 }
 .data-project {
-    width: 95%;
+    width: 93%;
     display: flex;
 }
 .data-project > span {
     display: flex;
     width: 33.3%;
-    padding: 10px 25px;
     flex-direction: column;
 }
-
+.name {
+    font-weight: 600;
+    color: #274d8a;
+}
 .navigation-project {
+    display: flex;
+    width: 7%;
+}
+.navigation-project button {
+    margin: 0px 5px;
+    padding: 7px;
+    border: none !important;
+    background-color: transparent;
+    cursor: pointer;
+}
+.navigation-project button i {
+    display: flex;
+    pointer-events: none;
+}
+.navigation-project button i:before {
+    font-size: 1.3em;
+    color: #333333;
+}
+.container-name input, .container-type select, .container-date input {
+    padding: 5px 10px;
+    height: 35px;
+    margin: 0px 5px;
+}
+
+
+
+.container-project, .container-project-archives {
+    display: none;
+    flex-direction: column;
+}
+.container-project.actif, .container-project-archives.actif  {
     display: flex;
 }
 button.hide, input.hide, select.hide {
     display: none;
 }
-
-
-.container-project-archives.actif {
-    display: block;
-}
-.container-project-archives {
-    border: 1px solid purple;
+.project.edit .name, .project.edit .type, .project.edit .date {
     display: none;
 }
 
-.container-project.actif {
-    display: block;
-}
-.container-project {
-    display: none;
-}
-
-
+/* -- -- ARCHIVES -- -- */
 .container-project-archives .project {
     opacity: 0.4;
 }
