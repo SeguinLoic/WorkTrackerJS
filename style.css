@@ -13,75 +13,170 @@ body {
 }
 .container {
     width: 100%;
-    padding: 100px 250px;
+    padding: 0px 400px;
     min-height: 100vH;
     box-sizing: border-box;
+    padding-top: 50px;
+    background-color: #fcfcfc;
 }
-.container-title h2 {
-    line-height: 1.2em;
-    font-size: 2em;
-    font-weight: 700;
-    color: #274d8a;
+.container h1 {
+    font-size: 1.1em;
+    color: #333333;
 }
-.container-board {
+
+/* -- -- HEADER -- -- */
+.header {
     display: flex;
+    flex-direction: row;
+    border-radius: 5px 5px 0px 0px;
+    justify-content: space-between;
+    padding: 0px 50px;
+    background: linear-gradient(135deg, #ffc84e 0%,#eda22c 100%);
 }
-.container-board .container-content {
-    width: 75%;
-    padding: 25px;
+.information-header {
+    padding: 50px 0px;
     display: flex;
     flex-direction: column;
-    position: relative;
-    padding-top: 0px;
 }
-.container-board .navigation {
-    padding: 25px;
-    width: 25%;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0px 2px 17px -7px rgba(0,0,0,0.2);
-    height: 100%;
+.information-header .fakeTitle {
+    font-size: 2em;
+    line-height: 1em;
+    font-weight: 700;
+    padding-bottom: 15px;
+    color: #ffffff;
 }
-.navigationTableaux {
-    border: 1px solid green;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translateY(-100%);
+.information-header .citation {
+    font-style: italic;
+    color: #f9f9f9;
+}
+.img-utilisateur {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.navigationTableaux a {
-    padding: 7px 14px;
+.img-utilisateur img {
+    width: 165px;
+    border-radius: 50%;
+    transform: translateY(-25%);
 }
+
 
 
 /* -- FORMULAIRE -- */
+.navigation {
+    position: relative;
+}
+.btn-navigation {
+    background-color: #332a7c;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    transform: translateY(-30px);
+    cursor: pointer;
+}
+.btn-navigation i {
+    color: #fff;
+    font-size: 1.2em;
+    pointer-events: none !important;
+}
+.navigation form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #332a7c;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: 0px 2px 17px -7px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    overflow: hidden;
+    height: 0px;
+}
+.navigation.actif form {
+    height: 85px;
+}
 .formControl {
     display: flex;
     flex-direction: column;
-    padding-bottom: 12px;
+    padding-bottom: 0px;
+    width: 33.3%;
+    padding: 12px;
+    padding-bottom: 15px;
 }
 .formControl input, .formControl select {
     padding: 8px 10px;
     box-sizing: border-box;
+    background-color: #574bb2;
+    box-shadow: none !important;
+    border: none !important;
+    color: #fff;
+    height: 37px;
 }
 .formControl label {
     font-weight: 400;
-    color: #333333;
+    color: #aaaaaa;
     padding-bottom: 5px;
     font-size: 0.9em;
 }
-.container-board .navigation form button {
-    padding: 11px 22px;
-    border-radius: 5px !important;
-    font-weight: 800 !important;
-    text-transform: uppercase;
-    box-shadow: none !important;
-    background-color: #feb151;
-    margin-top: 10px;
-    border: none !important;
+.navigation button {
+    cursor: pointer;
     color: #fff;
+    background-color: #ffc239;
+    border: none !important;
+    padding: 10px 20px;
+    font-weight: 800;
+    text-transform: uppercase;
 }
+.btn-navigation .fa-minus {
+    display: none;
+}
+.navigation.actif .btn-navigation .fa-minus {
+    display: flex;
+}
+.navigation.actif .btn-navigation .fa-plus {
+    display: none;
+}
+
+
+/* -- NAVIGATION TABLEAU ARCHIVES / EN COURS -- */
+.navigationTableaux {
+    top: 0;
+    right: 0;
+    display: flex;
+    margin-top: 25px;
+    justify-content: flex-end;
+    padding-right: 55px;
+}
+.navigationTableaux a {
+    font-weight: 700;
+    text-decoration: none !important;
+    color: #9d9d9d;
+    position: relative;
+    transition: all 0.3s;
+    padding: 7px 14px;
+}
+.navigationTableaux a:after {
+    content: '';
+    width: 0%;
+    height: 3px;
+    background-color: #ffc239;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s;
+}
+.navigationTableaux .actif:after, .navigationTableaux a:hover::after {
+    width: 40%;
+}
+.navigationTableaux .actif {
+    color: #000;
+}
+
 
 /* -- FILTRES PROJETS -- */
 .filtres {
@@ -132,7 +227,7 @@ body {
 }
 .name {
     font-weight: 600;
-    color: #274d8a;
+    color: #332a7c;
 }
 .navigation-project {
     display: flex;
@@ -181,4 +276,96 @@ button.hide, input.hide, select.hide {
 }
 .container-project-archives .navigation-project {
     display: none;
+}
+
+
+
+.signature a {
+    padding-left: 4px;
+    text-decoration: none !important;
+    color: #333333;
+    font-weight: 700;
+}
+.signature i {
+    padding: 0px 5px;
+    font-size: 0.8em;
+    color: #f6b43c;
+}
+.signature {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    padding: 5px;
+    /* background-color: #fff; */
+}
+
+
+
+@media screen and (max-width: 1700px) {
+    .container {
+        padding: 0px 250px;
+        padding-top: 50px;
+    }
+}
+
+@media screen and (max-width: 1450px) {
+    .container {
+        padding: 0px 150px;
+        padding-top: 50px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        padding: 0px 50px;
+        padding-top: 50px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .navigation-project {
+        width: auto;
+    }
+    .data-project {
+        width: 100%;
+    }
+    .navigationTableaux {
+        justify-content: center;
+        padding-right: 0px;
+        margin-bottom: 25px;
+    }
+    .information-header {
+        padding: 50px 0px;
+        padding-right: 50px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .container {
+        padding: 0px 35px;
+        padding-top: 35px;
+    }
+    .header {
+        flex-direction: column;
+    }
+    .img-utilisateur {
+        order: -1;
+        height: 100px;
+    }
+    .information-header {
+        padding: 35px 0px;
+        padding-right: 0px;
+        padding-top: 15px;
+    }
+    .header {
+        padding: 0px 35px;
+    }
+    .img-utilisateur img {
+        width: 115px;
+        transform: translateY(-15%);
+    }
 }

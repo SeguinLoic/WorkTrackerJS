@@ -6,27 +6,39 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4ad13589b0.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="IMG/FAVICON.jpg"/>
     <title>Work Tracker</title>
 </head>
 <body>
 
     <div class="container">
 
-        <div class="container-title">
-            <h2>What's up ?</h2>
+        <h1>Work Tracker</h1>
+			
+        <div class="container-header">
+            <div class='header'>
+                <div class='information-header'>
+                    <span class='fakeTitle'>What's up buddy ?!</span>
+                    <span class='citation'>Le meilleur moyen de prévoir le futur, c'est de le créer ! Alors au charbon !</span>
+                </div>
+                <div class='img-utilisateur'><img src='IMG/ME.jpg'/></div>
+            </div>
         </div>
 
-        <div class="container-board">
-  
-            <div class="navigation">
-                <form id="form">
+        <div class="navigation">
+            <span class='btn-navigation'>
+                <i class="fas fa-plus"></i>
+                <i class="fas fa-minus"></i>
+            </span>
+
+            <form id="form">
                 <div class="formControl">
-                    <label for="projectName">Project name</label>
+                    <label for="projectName">Nom</label>
                     <input type="text" id="projectName">
                     <small></small>
                 </div>
                 <div class="formControl">
-                    <label for="projectType">Project type</label>
+                    <label for="projectType">Type</label>
                     <select id="projectType">
                     <option>Home + 1 PA</option>
                     <option>Pages d'Activités</option>
@@ -37,29 +49,32 @@
                     <small></small>
                 </div>
                 <div class="formControl">
-                    <label for="projectType">Project date</label>
+                    <label for="projectType">Date</label>
                     <input type="date" id="projectDate">
                     <small></small>
                 </div>
                 <button>Envoyer</button>
-                </form>
-            </div>
-			
-			<div class='container-content'>
-				<div class='navigationTableaux'><a href='#' class='enCours'>En cours</a><a href='#' class='archives'>Archivés</a></div>
-					<div class='filtres'>
-						<span class='filtreNom' data-filtre="nom">Nom</span>
-						<span class='filtreType' data-filtre="type">Type</span>
-						<span class='filtreDate' data-filtre="date">Date</span>
-					</div>
-				<div class="container-project actif"></div>
-				<div class='container-project-archives'></div>
-			</div>
+            </form>
         </div>
 
-    </div>
+		<div class='navigationTableaux'>
+            <a href='#' class='enCours actif'>En cours</a>
+            <a href='#' class='archives'>Archivés</a>
+        </div>
+                    
+        <div class='filtres'>
+			<span class='filtreNom' data-filtre="nom">Nom</span>
+			<span class='filtreType' data-filtre="type">Type</span>
+			<span class='filtreDate' data-filtre="date">Date</span>
+        </div>
+                    
+		<div class="container-project actif"></div>
+		<div class='container-project-archives'></div>
 
-      <script src="script.js"></script>
+    </div>
+    <div class='signature'>Fait avec <i class="fas fa-heart"></i> by <a href='https://github.com/SeguinLoic' target="_blank">Loïc Seguin</a></div>
+
+    <script src="script.js"></script>
     
 </body>
 </html>

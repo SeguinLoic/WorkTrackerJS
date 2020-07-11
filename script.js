@@ -4,6 +4,7 @@ const btnForm = document.querySelector("#form button");
 const projectName = document.getElementById("projectName");
 const projectType = document.getElementById("projectType");
 const projectDate = document.getElementById("projectDate");
+const btnNavigation = document.querySelector(".btn-navigation");
 const navigationTableau = document.querySelector(".navigationTableaux");
 const containerProject = document.querySelector(".container-project");
 const containerArchives = document.querySelector(".container-project-archives");
@@ -17,6 +18,10 @@ getStore();
 
 // --- EVENT LISTENER
 btnForm.addEventListener("click", addProject);
+btnNavigation.addEventListener("click", function(e){
+  const parent = e.target.parentNode;
+  parent.classList.toggle("actif");
+})
 containerProject.addEventListener("click", function(e){
   e.preventDefault();
   if (e.target.classList.contains('remove-project')){
@@ -33,10 +38,15 @@ navigationTableau.addEventListener("click", function(e){
 	e.preventDefault();
 	if( e.target.classList.contains("enCours")){
 		containerArchives.classList.remove("actif");
-		containerProject.classList.add("actif");
+    containerProject.classList.add("actif");
+    navigationTableau.querySelector(".archives").classList.remove("actif");
+    navigationTableau.querySelector(".enCours").classList.add("actif");
+
 	} else if( e.target.classList.contains("archives")) {
 		containerProject.classList.remove("actif");
-		containerArchives.classList.add("actif");
+    containerArchives.classList.add("actif");
+    navigationTableau.querySelector(".archives").classList.add("actif");
+    navigationTableau.querySelector(".enCours").classList.remove("actif");
 	}
 });
 filtres.addEventListener("click", filtresProjets);
